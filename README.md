@@ -271,6 +271,15 @@ LEAN Engine is an open-source algorithmic trading engine built for easy strategy
 
 The core of the LEAN Engine is written in C#, but it operates seamlessly on Linux, Mac and Windows operating systems. To use it, you can write algorithms in Python 3.8 or C#. QuantConnect maintains the LEAN project and uses it to drive the web-based algorithmic trading platform on the website.
 
+## Developer
+
+This brokerage integration was developed by:
+
+**Sandip Chaudhari**
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-blue)](https://www.linkedin.com/in/sandip-chaudhari-aws/)
+
+For questions, issues, or contributions, please open an issue on this repository.
+
 ## Contributions
 
 Contributions are warmly very welcomed but we ask you to read the existing code to see how it is formatted, commented and ensure contributions match the existing style. All code submissions must include accompanying tests. Please see the [contributor guide lines](https://github.com/QuantConnect/Lean/blob/master/CONTRIBUTING.md).
