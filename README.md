@@ -1,8 +1,61 @@
 ![header-cheetah](https://user-images.githubusercontent.com/79997186/184224088-de4f3003-0c22-4a17-8cc7-b341b8e5b55d.png)
 
-&nbsp;
-&nbsp;
-&nbsp;
+---
+
+## IMPORTANT DISCLAIMER
+
+> **THIS IS NOT AN OFFICIAL QUANTCONNECT REPOSITORY**
+>
+> This is an independent, community-developed brokerage integration. It is **NOT** officially supported, endorsed, or maintained by QuantConnect Corporation or Fyers.
+
+---
+
+### **RISK WARNING - PLEASE READ CAREFULLY**
+
+**LIVE TRADING INVOLVES SUBSTANTIAL RISK OF FINANCIAL LOSS.** By using this software for live trading, you acknowledge and accept the following:
+
+1. **NO WARRANTY**: This software is provided "AS IS" without any warranty of any kind. The authors and contributors are **NOT** responsible for any financial losses, trading errors, or damages arising from the use of this software.
+
+2. **USE AT YOUR OWN RISK**: Live trading with real money carries significant risk. You may lose some or all of your invested capital. Only trade with money you can afford to lose.
+
+3. **NOT FINANCIAL ADVICE**: This software does not constitute financial, investment, or trading advice. Consult a qualified financial advisor before making any trading decisions.
+
+4. **TESTING RECOMMENDED**: **ALWAYS** test thoroughly with paper trading before deploying any strategy with real funds. The authors strongly recommend extended testing in a simulated environment.
+
+5. **UNOFFICIAL INTEGRATION**: This brokerage integration has **NOT** been officially reviewed or approved by QuantConnect or Fyers. There may be bugs, errors, or incompatibilities that could result in unexpected behavior.
+
+6. **API CHANGES**: Fyers may change their API at any time, which could cause this integration to malfunction without notice.
+
+7. **REGULATORY COMPLIANCE**: Users are solely responsible for ensuring compliance with all applicable laws, regulations, and exchange rules in their jurisdiction.
+
+**BY USING THIS SOFTWARE, YOU AGREE THAT THE AUTHORS AND CONTRIBUTORS SHALL NOT BE HELD LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES.**
+
+---
+
+## Configuration Setup
+
+Before running the brokerage, you must configure your credentials:
+
+1. Copy `config.example.json` to `QuantConnect.FyersBrokerage.Tests/config.json`
+2. Fill in your Fyers API credentials:
+
+```json
+{
+  "data-folder": "../../../Data/",
+  "fyers-client-id": "YOUR_APP_ID-100",
+  "fyers-access-token": "YOUR_ACCESS_TOKEN",
+  "fyers-trading-segment": "EQUITY",
+  "fyers-product-type": "INTRADAY"
+}
+```
+
+**NEVER commit your `config.json` file with real credentials.** The `.gitignore` file is configured to exclude this file.
+
+To obtain your credentials:
+- **Client ID**: Create an app at [Fyers API Dashboard](https://myapi.fyers.in/dashboard)
+- **Access Token**: Generate via OAuth flow as documented at [Fyers API Docs](https://myapi.fyers.in/docsv3)
+
+---
 
 ## Introduction
 
