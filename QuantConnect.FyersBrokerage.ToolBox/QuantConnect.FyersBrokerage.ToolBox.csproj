@@ -1,0 +1,36 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <Configuration Condition=" '$(Configuration)' == '' ">Release</Configuration>
+        <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net9.0</TargetFramework>
+        <Copyright>Copyright ©  2024</Copyright>
+        <OutputPath>bin\$(Configuration)\</OutputPath>
+        <Product>QuantConnect.FyersBrokerage.ToolBox</Product>
+        <AssemblyName>QuantConnect.FyersBrokerage.ToolBox</AssemblyName>
+        <RootNamespace>QuantConnect.FyersBrokerage.ToolBox</RootNamespace>
+        <AssemblyTitle>QuantConnect.FyersBrokerage.ToolBox</AssemblyTitle>
+        <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+        <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+        <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+        <Description>QuantConnect LEAN Fyers Brokerage: Brokerage toolbox plugin for Lean</Description>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+        <DebugType>full</DebugType>
+        <OutputPath>bin\Debug\</OutputPath>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+        <DebugType>pdbonly</DebugType>
+        <OutputPath>bin\Release\</OutputPath>
+    </PropertyGroup>
+    <ItemGroup>
+        <Compile Include="..\..\Lean\Common\Properties\SharedAssemblyInfo.cs" Link="Properties\SharedAssemblyInfo.cs" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\QuantConnect.FyersBrokerage\QuantConnect.FyersBrokerage.csproj" />
+      <ProjectReference Include="..\..\Lean\ToolBox\QuantConnect.ToolBox.csproj" />
+    </ItemGroup>
+
+</Project>

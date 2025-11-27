@@ -1,0 +1,21 @@
+{
+    "// INSTRUCTIONS": "Copy this file to config.json and fill in your credentials",
+
+    "data-folder": "../Lean/Data/",
+
+    "fyers-client-id": "YOUR_APP_ID-100",
+    "fyers-access-token": "YOUR_ACCESS_TOKEN_FROM_OAUTH",
+    "fyers-trading-segment": "EQUITY",
+    "fyers-product-type": "INTRADAY",
+
+    "// TRADING SEGMENTS": "EQUITY (NSE/BSE) or COMMODITY (MCX)",
+    "// PRODUCT TYPES": "CNC (Delivery), INTRADAY, MARGIN, CO (Cover Order), BO (Bracket Order)",
+
+    "// FOR LIVE TRADING": "Set environment to live-fyers in Launcher config",
+    "environment": "backtesting",
+
+    "// OPTIONAL - For QuantConnect Cloud": "",
+    "job-user-id": "",
+    "api-access-token": "",
+    "job-organization-id": ""
+}
