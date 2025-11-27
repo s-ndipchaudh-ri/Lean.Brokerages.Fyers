@@ -88,7 +88,7 @@ For more information about Fyers API, see the [Fyers API Documentation](https://
 | `lean live` command with Fyers | **NOT AVAILABLE** | Fyers not added to official lean-cli modules |
 | QuantConnect Cloud deployment | **NOT AVAILABLE** | Requires official QC integration |
 | VSCode plugin deployment | **NOT AVAILABLE** | Requires official QC integration |
-| TrueData datasets | **NOT AVAILABLE** | Official QC data provider integration |
+| QuantConnect Data Library | **NOT AVAILABLE** | Requires official QC integration |
 | `BrokerageName.Fyers` enum | **NOT AVAILABLE** | Not in official LEAN engine |
 
 ### **AVAILABLE** (Current Implementation)
@@ -160,7 +160,7 @@ Fyers supports trading India Equities, Futures, and Options with the following o
 
 ## Downloading Data
 
-**Note:** Official QuantConnect data providers (TrueData, etc.) are **NOT** available for this unofficial integration.
+**Note:** Official QuantConnect data providers are **NOT** available for this unofficial integration.
 
 For historical data, this brokerage provides:
 
