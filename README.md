@@ -134,7 +134,30 @@ Add the following to your `lean.json` configuration:
 
 ### Step 3: Reference the DLL
 
-Add reference to `QuantConnect.FyersBrokerage.dll` in your LEAN engine configuration.
+**Option A: Copy DLLs to LEAN Launcher folder**
+
+```bash
+# After building, copy the output DLLs to your LEAN Launcher bin directory
+cp QuantConnect.FyersBrokerage/bin/Release/*.dll /path/to/Lean/Launcher/bin/Debug/
+```
+
+**Option B: Add Project Reference (if building LEAN from source)**
+
+Add this to your `Lean/Launcher/Launcher.csproj`:
+
+```xml
+<ProjectReference Include="..\..\Lean.Brokerages.Fyers\QuantConnect.FyersBrokerage\QuantConnect.FyersBrokerage.csproj" />
+```
+
+**Option C: Add to config.json composer-dll-directory**
+
+In your `config.json`, specify the directory containing the Fyers DLL:
+
+```json
+{
+  "composer-dll-directory": "/path/to/Lean.Brokerages.Fyers/QuantConnect.FyersBrokerage/bin/Release"
+}
+```
 
 ### Step 4: Set Brokerage Model in Algorithm
 
