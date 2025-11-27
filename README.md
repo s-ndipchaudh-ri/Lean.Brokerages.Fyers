@@ -75,96 +75,75 @@ This repository hosts the Fyers Brokerage Plugin Integration with the QuantConne
 
 [Fyers](https://fyers.in/) is a technology-driven stock broker based in India, founded in 2015. Fyers provides access to Indian Equities (NSE, BSE), Futures & Options, Currency, and Commodities (MCX) for clients in India. Fyers is known for its advanced trading platforms, competitive pricing with zero brokerage for equity delivery, and comprehensive API access for algorithmic trading.
 
-For more information about the Fyers brokerage, see the [QuantConnect-Fyers Integration Page](https://www.quantconnect.com/docs/v2/our-platform/live-trading/brokerages/fyers).
+For more information about Fyers API, see the [Fyers API Documentation](https://myapi.fyers.in/docsv3).
 
-## Using the Brokerage Plugin
+---
 
-### Deploying Fyers with VSCode User Interface
+## Current Status - What Works and What Doesn't
 
-  You can deploy using a visual interface in the QuantConnect cloud. For instructions, see the [QuantConnect-Fyers brokerage Integration Page](https://www.quantconnect.com/docs/v2/our-platform/live-trading/brokerages/fyers).
+### **NOT CURRENTLY SUPPORTED** (Requires Official QuantConnect Approval)
 
-  In the QuantConnect Cloud Platform, you can harness the QuantConnect Live Data Feed. For most users, this is substantially cheaper and easier than self-hosting.
+| Feature | Status | Reason |
+|---------|--------|--------|
+| `lean live` command with Fyers | **NOT AVAILABLE** | Fyers not added to official lean-cli modules |
+| QuantConnect Cloud deployment | **NOT AVAILABLE** | Requires official QC integration |
+| VSCode plugin deployment | **NOT AVAILABLE** | Requires official QC integration |
+| TrueData datasets | **NOT AVAILABLE** | Official QC data provider integration |
+| `BrokerageName.Fyers` enum | **NOT AVAILABLE** | Not in official LEAN engine |
 
-### Deploying Fyers with LEAN CLI
+### **AVAILABLE** (Current Implementation)
 
-Follow these steps to start local live trading with the Fyers brokerage:
+| Feature | Status | Notes |
+|---------|--------|-------|
+| Direct LEAN Engine integration | Available | Manual configuration required |
+| Live order execution | Available | Through Fyers API |
+| Real-time market data streaming | Available | WebSocket-based |
+| Historical data for backtesting | Available | Through Fyers History API |
+| Symbol mapping (NSE, BSE, MCX) | Available | Equities, F&O, Commodities |
 
-1.  Open a terminal in your [CLI root directory](https://www.quantconnect.com/docs/v2/lean-cli/initialization/directory-structure#02-lean-init).
-2.  Run `lean live "<projectName>"` to start a live deployment wizard for the project in ./`<projectName>` and then enter the brokerage number.
+---
 
-    ```
-    $ lean live 'My Project'
+## Using the Brokerage Plugin (Manual Integration)
 
-    Select a brokerage:
-    1. Paper Trading
-    2. Interactive Brokers
-    3. Tradier
-    ...
-    N. Fyers
-    Enter an option:
-    ```
+Since this is **NOT** officially integrated into LEAN CLI, you must manually configure the brokerage:
 
-3.  Enter the number of the organization that has a subscription for the Fyers module.
+### Step 1: Clone and Build
 
-    ```
-    $ lean live "My Project"
+```bash
+git clone https://github.com/s-ndipchaudh-ri/Lean.Brokerages.Fyers.git
+cd Lean.Brokerages.Fyers
+dotnet build
+```
 
-    Select the organization with the Fyers module subscription:
-    1. Organization 1
-    2. Organization 2
-    3. Organization 3
-    Enter an option: 1
-    ```
+### Step 2: Configure lean.json
 
-4.  Enter your Fyers credentials.
+Add the following to your `lean.json` configuration:
 
-    ```
-    $ lean live "My Project"
-    Your Fyers App ID (Client ID):
-    Client ID:
-    Your Fyers access token:
-    Access token:
-    ```
+```json
+{
+  "environment": "live-fyers",
+  "live-mode": true,
+  "live-mode-brokerage": "FyersBrokerage",
+  "data-queue-handler": ["FyersBrokerage"],
+  "fyers-client-id": "YOUR_APP_ID-100",
+  "fyers-access-token": "YOUR_ACCESS_TOKEN",
+  "fyers-trading-segment": "EQUITY",
+  "fyers-product-type": "INTRADAY"
+}
+```
 
-5.  Enter your Fyers product type.
+### Step 3: Reference the DLL
 
-    ```
-    $ lean live "My Project"
+Add reference to `QuantConnect.FyersBrokerage.dll` in your LEAN engine configuration.
 
-    The product type must be set to CNC for delivery trades, INTRADAY for intraday trades,
-    MARGIN for margin trades, CO for cover orders, or BO for bracket orders.
-    Product type (CNC, INTRADAY, MARGIN, CO, BO) [INTRADAY]:
-    ```
+### Step 4: Set Brokerage Model in Algorithm
 
-6.  Enter your Fyers trading segment.
+```csharp
+// Since BrokerageName.Fyers is not in official LEAN, use custom setup:
+SetBrokerageModel(new FyersBrokerageModel());
+```
 
-    ```
-    $ lean live "My Project"
-
-    The trading segment must be set to EQUITY if you are trading equities on NSE or BSE,
-    or COMMODITY if you are trading commodities on MCX.
-    Trading segment (EQUITY, COMMODITY) [EQUITY]:
-    ```
-
-7.  Enter the number of the data feed to use and then follow the steps required for the data connection.
-
-    ```
-    $ lean live 'My Project'
-
-    Select a data feed:
-    1. Interactive Brokers
-    2. Tradier
-    ...
-    N. Fyers
-    ...
-    15. Custom Data Only
-
-    To enter multiple options, separate them with comma:
-    ```
-
-8. View the result in the `<projectName>/live/<timestamp>` directory. Results are stored in real-time in JSON format. You can save results to a different directory by providing the `--output <path>` option in step 2.
-
-If you already have a live environment configured in your [Lean configuration file](https://www.quantconnect.com/docs/v2/lean-cli/initialization/configuration#03-Lean-Configuration), you can skip the interactive wizard by providing the `--environment <value>` option in step 2. The value of this option must be the name of an environment which has `live-mode` set to true.
+**Note:** Full `lean live` CLI support will only be available after official QuantConnect approval and integration.
 
 ## Account Types
 
@@ -181,22 +160,37 @@ Fyers supports trading India Equities, Futures, and Options with the following o
 
 ## Downloading Data
 
-For local deployment, the algorithm needs to download the following dataset:
+**Note:** Official QuantConnect data providers (TrueData, etc.) are **NOT** available for this unofficial integration.
 
-- [India Equities](https://www.quantconnect.com/datasets/truedata-india-equities) provided by TrueData
-- [India Equity Security Master](https://www.quantconnect.com/datasets/truedata-india-equity-security-master) provided by TrueData
+For historical data, this brokerage provides:
+
+- **Fyers History API**: Use the built-in `FyersBrokerageDownloader` to download historical OHLCV data directly from Fyers
+- **Real-time Data**: The brokerage streams live market data via WebSocket when connected
+
+### Using FyersBrokerageDownloader
+
+```csharp
+var downloader = new FyersBrokerageDownloader("YOUR_CLIENT_ID", "YOUR_ACCESS_TOKEN");
+var data = downloader.Get(new DataDownloaderGetParameters(symbol, resolution, startDate, endDate));
+```
+
+**Limitations:**
+- Fyers API has rate limits on historical data requests
+- Historical data availability depends on your Fyers subscription plan
+- Some data may not be available for all instruments or timeframes
 
 ## Brokerage Model
 
 Lean models the brokerage behavior for backtesting purposes. The margin model is used in live trading to avoid placing orders that will be rejected due to insufficient buying power.
 
-You can set the Brokerage Model with the following statements
-```
-SetBrokerageModel(BrokerageName.Fyers, AccountType.Cash);
-SetBrokerageModel(BrokerageName.Fyers, AccountType.Margin);
-```
+**Since `BrokerageName.Fyers` is not in official LEAN**, use the custom brokerage model:
 
-[Read Documentation](https://www.quantconnect.com/docs/v2/our-platform/live-trading/brokerages/fyers)
+```csharp
+// For this unofficial integration:
+SetBrokerageModel(new FyersBrokerageModel(AccountType.Margin));
+// or
+SetBrokerageModel(new FyersBrokerageModel(AccountType.Cash));
+```
 
 ### Fees
 
@@ -215,8 +209,6 @@ To check the latest fees, see the [Pricing page](https://fyers.in/pricing) on th
 ### Margin
 
 We model buying power and margin calls to ensure your algorithm stays within the margin requirements.
-
-[Read Documentation](https://www.quantconnect.com/docs/v2/our-platform/live-trading/brokerages/fyers)
 
 #### Buying Power
 
